@@ -31,4 +31,10 @@ public class UserController {
         User user = userService.fromDTO(userDto);
         return ResponseEntity.created(null).body(userService.insert(user));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
