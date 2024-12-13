@@ -1,6 +1,7 @@
 package com.felipebaamonde.workshopmongo.config;
 
 import com.felipebaamonde.workshopmongo.dto.AuthorDto;
+import com.felipebaamonde.workshopmongo.dto.CommentDto;
 import com.felipebaamonde.workshopmongo.entities.Post;
 import com.felipebaamonde.workshopmongo.entities.User;
 import com.felipebaamonde.workshopmongo.repositories.PostRepository;
@@ -35,6 +36,14 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("23/12/2024"),"Partiu viagem","Vou viajar para São Paulo. Abraços!", new AuthorDto(maria));
         Post post2 = new Post(null, sdf.parse("26/12/2024"),"Melhor almoço","Acabei de fazer uma feijoada incrível!", new AuthorDto(maria));
+
+        CommentDto c1 = new CommentDto("Boa viagem mano!", sdf.parse("23/12/2024"), new AuthorDto(alex));
+        CommentDto c2 = new CommentDto("Aproveite", sdf.parse("24/12/2024"), new AuthorDto(bob));
+        CommentDto c3 = new CommentDto("Tenha um ótimo dia!", sdf.parse("25/12/2024"), new AuthorDto(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post2.getComments().addAll(Arrays.asList(c3));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
 
         maria.getPosts().addAll(Arrays.asList(post1,post2));
