@@ -19,6 +19,10 @@ public class PostService {
     public Post findById(String id) {
         return postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Post com id %s não encontrado".formatted(id)));
     }
+
+    public List<Post> findByTitle(String title){
+        return postRepository.findByTitleContainingIgnoreCase(title);
+    }
 }
 
 

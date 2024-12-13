@@ -1,5 +1,6 @@
 package com.felipebaamonde.workshopmongo.controller;
 
+import com.felipebaamonde.workshopmongo.controller.util.URL;
 import com.felipebaamonde.workshopmongo.dto.UserDto;
 import com.felipebaamonde.workshopmongo.entities.Post;
 import com.felipebaamonde.workshopmongo.entities.User;
@@ -21,6 +22,12 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<Post> findById(@PathVariable String id){
         return ResponseEntity.ok().body(postService.findById(id));
+    }
+
+    @GetMapping("/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        return ResponseEntity.ok().body(postService.findByTitle(text));
     }
 
 }
