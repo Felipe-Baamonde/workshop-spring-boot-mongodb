@@ -1,6 +1,7 @@
 package com.felipebaamonde.workshopmongo.controller;
 
 import com.felipebaamonde.workshopmongo.dto.UserDto;
+import com.felipebaamonde.workshopmongo.entities.Post;
 import com.felipebaamonde.workshopmongo.entities.User;
 import com.felipebaamonde.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class UserController {
     public ResponseEntity<Void> update(@RequestBody User obj, @PathVariable String id){
         obj.setId(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPostsById(@PathVariable String id){
+        return ResponseEntity.ok().body(userService.findById(id).getPosts());
     }
 }
